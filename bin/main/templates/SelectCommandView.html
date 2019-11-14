@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>SelectCommand</title>
+</head>
+<body>
+	<h1>行動選択</h1>
+	<span th:text="${key} + '人目'"></span>
+	<th:block th:each="player : ${partyListMap}">
+		<div th:if="${player.value.charId} == ${key}">
+			<span th:text="'職業 ：' + ${player.value.jobName}"></span>
+			<br />
+			<span th:text="'名前 ：' + ${player.value.name}"></span>
+			<br />
+			<form action="#" th:action="@{/SelectCommand}" th:object="${BattleForm}" method="POST">
+				<input type="hidden" name="charId" th:value="${player.value.charId}">
+				<input type="hidden" name="command" th:value="たたかう">
+				<input type="submit" value="たたかう">
+			</form>
+			<form action="#" th:action="@{/SelectCommand}" th:object="${BattleForm}" method="POST">
+				<input type="hidden" name="charId" th:value="${player.value.charId}">
+				<input type="hidden" name="command" th:value="かいふく">
+				<input type="submit" value="かいふく">
+			</form>
+		</div>
+	</th:block>
+	<br />
+	<ul th:each="player : ${partyListMap}">
+		<li th:text="${player.value.name} + ' ' + ${player.value.command}"></li>
+	</ul>
+</body>
+</html>

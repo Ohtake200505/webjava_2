@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>InitialSettings</title>
+</head>
+<body>
+	<h1>キャラ作成</h1>
+	<div th:if="${num} != 99">
+		<span th:text="'残り' + ${num} + '人'"></span>
+	</div>
+	<form action="#" th:action="@{/Rpg}" th:object="${PlayerForm}" method="POST">
+	<div th:if="${num} == 99">
+			<p>
+			パーティ人数選択(1～4)
+			<select th:name="num">
+				<option th:each="i : ${#numbers.sequence(1, 4)}" th:value="${i}" th:text="${i}"></option>
+			</select>
+			</p>
+			<br />
+			<span th:text="1人目"></span>
+	</div>
+	職業 ：
+	<input type="radio" name="jobName" value="戦士" checked> 戦士
+	<input type="radio" name="jobName" value="魔法使い"> 魔法使い
+	<input type="radio" name="jobName" value="武闘家"> 武闘家
+	<br />
+	名前 ：
+	<input type="text" name="name" value="ぶるる">
+	<br />
+	<input type="hidden" name="num" th:value="${num}">
+	<input type="submit" value="次へ">
+	</form>
+	<br />
+	<br />
+	<div th:if="${num} != 99">
+		<p>登録済みメンバー</p>
+		<ul>
+		<li th:each="player : ${partyListMap}">
+			<span th:text="${player.value.name} + ' ' + ${player.value.jobName}"></span>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Battle</title>
+</head>
+<body>
+	<h1>行動結果</h1>
+	<th:block th:each="player : ${partyListMap}">
+	<span th:text="${player.value.name} + 'は' + ${player.value.command}"></span>
+	<br />
+	</th:block>
+	<br />
+	<span th:text="'トータルで ' + ${dmg} + ' のダメージを与えた！'"></span>
+	<br />
+	<br />
+	<br />
+	<table border="1">
+		<thead>
+			<tr>
+			<th>名前</th>
+			<th>職業</th>
+			<th>ＨＰ</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr th:each="player : ${partyListMap}">
+			<td th:text="${player.value.name}"></td>
+			<td th:text="${player.value.jobName}"></td>
+			<td th:text="${player.value.hp}"></td>
+		</tr>
+		</tbody>
+	</table>
+	<br />
+	<br />
+	<form action="#" th:action="@{/SelectCommand}" method="GET">
+	<input type="submit" value="行動選択へ戻る">
+	</form>
+</body>
+</html>
