@@ -3,8 +3,11 @@ package jp.co.systena.tigerscave.rpg.service;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import jp.co.systena.tigerscave.rpg.model.Player;
 
+@Service
 public class PartyService {
 
 	Map<Integer, Player> partyListMap = new LinkedHashMap<Integer, Player>();
@@ -17,7 +20,7 @@ public class PartyService {
 		partyListMap.put(charId, player);
 	}
 
-	public int changeCommand() {
+	public int checkDamage() {
 		int dmg = 0;
 	    for(int i=1; i<partyListMap.size()+1; i++) {
 	    	Player player = partyListMap.get(i);
@@ -28,6 +31,7 @@ public class PartyService {
 	    		break;
 	    	case "かいふく":
 	    		player.setCommand(player.getJob().heal());
+	    		player.setHp(player.getHp() +50);
 	    		break;
 	    	}
 	    }

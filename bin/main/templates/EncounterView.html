@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Encounter</title>
+</head>
+<body>
+	<h1>エンカウント</h1>
+	<span th:text="${monster.name} + 'が現れた！！'"></span>
+	<br />
+	<img th:src="${monster.imgPath}"></img>
+	<br />
+	<br />
+	<table border="1">
+		<thead>
+			<tr>
+			<th>名前</th>
+			<th>ＨＰ</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td th:text="${monster.name}"></td>
+			<td th:text="${monster.hp}"></td>
+		</tr>
+		</tbody>
+	</table>
+	<br />
+	<form action="#" th:action="@{/SelectCommand}">
+		<input type="submit" value="行動選択へ">
+	</form>
+</body>
+</html>

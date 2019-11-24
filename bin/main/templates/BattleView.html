@@ -6,35 +6,64 @@
 </head>
 <body>
 	<h1>行動結果</h1>
+	<div th:if="${monster.hp} != 0">
+		<table border="1">
+			<thead>
+				<tr>
+				<th>名前</th>
+				<th>ＨＰ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<td th:text="${monster.name}"></td>
+				<td th:text="${monster.hp}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<img th:src="${monster.imgPath}"></img>
+	<br />
+	</div>
 	<th:block th:each="player : ${partyListMap}">
 	<span th:text="${player.value.name} + 'は' + ${player.value.command}"></span>
 	<br />
 	</th:block>
 	<br />
-	<span th:text="'トータルで ' + ${dmg} + ' のダメージを与えた！'"></span>
+	<span th:text="'トータルで ' + ${battleService.dmg} + ' のダメージを与えた！'"></span>
 	<br />
-	<br />
-	<br />
-	<table border="1">
-		<thead>
-			<tr>
-			<th>名前</th>
-			<th>職業</th>
-			<th>ＨＰ</th>
-			</tr>
-		</thead>
-		<tbody>
-		<tr th:each="player : ${partyListMap}">
-			<td th:text="${player.value.name}"></td>
-			<td th:text="${player.value.jobName}"></td>
-			<td th:text="${player.value.hp}"></td>
-		</tr>
-		</tbody>
-	</table>
-	<br />
-	<br />
-	<form action="#" th:action="@{/SelectCommand}" method="GET">
-	<input type="submit" value="行動選択へ戻る">
-	</form>
+	<div th:if="${monster.hp} == 0">
+		<h2 th:text="${monster.name} + 'を倒した！'"></h2>
+		<br />
+		<form action="#" th:action="@{/Encounter}" method="GET">
+			<input type="submit" value="エンカウントへ戻る">
+		</form>
+	</div>
+	<div th:if="${monster.hp} != 0">
+		<br />
+		<span th:text="${monster.command}"></span>
+		<span th:text="${battleService.monTargetName} + 'は' + ${battleService.monDmg} + 'のダメージを受けた！'"></span>
+		<br />
+		<table border="1">
+			<thead>
+				<tr>
+				<th>名前</th>
+				<th>職業</th>
+				<th>ＨＰ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="player : ${partyListMap}">
+				<td th:text="${player.value.name}"></td>
+				<td th:text="${player.value.jobName}"></td>
+				<td th:text="${player.value.hp}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<br />
+		<form action="#" th:action="@{/SelectCommand}" method="GET">
+			<input type="submit" value="行動選択へ戻る">
+		</form>
+	</div>
 </body>
 </html>
